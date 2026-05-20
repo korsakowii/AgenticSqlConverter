@@ -1,0 +1,84 @@
+{
+  "cte_count": 6,
+  "cycle_nodes": [],
+  "dialect": "postgres",
+  "edges": [
+    {
+      "dependency_type": "cte_to_table",
+      "from": "base_events",
+      "to": "metric_fact_sample"
+    },
+    {
+      "dependency_type": "cte_to_cte",
+      "from": "geo_enriched",
+      "to": "base_events"
+    },
+    {
+      "dependency_type": "cte_to_table",
+      "from": "geo_enriched",
+      "to": "geography_dim_sample"
+    },
+    {
+      "dependency_type": "cte_to_cte",
+      "from": "geo_keys",
+      "to": "base_events"
+    },
+    {
+      "dependency_type": "cte_to_cte",
+      "from": "product_enriched",
+      "to": "geo_enriched"
+    },
+    {
+      "dependency_type": "cte_to_table",
+      "from": "product_enriched",
+      "to": "product_dim_sample"
+    },
+    {
+      "dependency_type": "cte_to_cte",
+      "from": "product_keys",
+      "to": "base_events"
+    }
+  ],
+  "error_message": null,
+  "has_cycle": false,
+  "has_parse_error": false,
+  "nodes": [
+    {
+      "name": "bounds",
+      "node_type": "cte"
+    },
+    {
+      "name": "base_events",
+      "node_type": "cte"
+    },
+    {
+      "name": "geo_keys",
+      "node_type": "cte"
+    },
+    {
+      "name": "product_keys",
+      "node_type": "cte"
+    },
+    {
+      "name": "geo_enriched",
+      "node_type": "cte"
+    },
+    {
+      "name": "product_enriched",
+      "node_type": "cte"
+    },
+    {
+      "name": "geography_dim_sample",
+      "node_type": "table"
+    },
+    {
+      "name": "metric_fact_sample",
+      "node_type": "table"
+    },
+    {
+      "name": "product_dim_sample",
+      "node_type": "table"
+    }
+  ],
+  "table_count": 3
+}

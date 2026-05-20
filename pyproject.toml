@@ -1,0 +1,122 @@
+[build-system]
+requires = ["setuptools>=61.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "AgenticSqlConverter"
+version = "0.1.0"
+description = "Offline SQL migration validation harness: parsing, CTE extraction, dependency graphs, and deterministic risk classification."
+readme = "README.md"
+license = {file = "LICENSE"}
+authors = [
+    {name = "Agentic SQL Converter Team", email = "team@agenticsqlconverter.com"}
+]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.9",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Database",
+    "Topic :: Software Development :: Code Generators",
+]
+requires-python = ">=3.9"
+dependencies = [
+    "sqlparse>=0.4.4",
+    "sqlglot>=20.0.0",
+    "click>=8.1.0",
+    "pydantic>=1.10.0,<3.0.0",
+    "rich>=10.0.0",
+    "typer[all]>=0.9.0",
+    "openai>=1.3.0",
+    "anthropic>=0.8.0",
+    "requests>=2.31.0",
+    "tenacity>=8.2.0",
+    "langchain>=0.0.27",
+    "pandas>=1.5.0,<2.0.0",
+    "networkx>=2.6.0,<3.0",
+    "pyyaml>=6.0",
+    "loguru>=0.7.0",
+    "python-dotenv>=0.21.0,<1.0.0",
+    "psutil>=5.9.0",
+    "tqdm>=4.66.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=6.0.0,<7.0.0",
+    "pytest-cov>=4.1.0",
+    "pytest-mock>=3.11.0",
+    "black>=22.0.0,<23.0.0",
+    "isort>=5.12.0",
+    "flake8>=6.0.0",
+    "mypy>=0.991,<1.0.0",
+    "pre-commit>=3.4.0",
+    "bandit>=1.7.0",
+    "safety>=2.3.0",
+    "coverage>=7.0.0",
+]
+
+[project.scripts]
+agentic-sql-converter = "agentic_sql_converter.cli.main:main"
+
+[project.urls]
+Homepage = "https://github.com/korsakowii/AgenticSqlConverter"
+Documentation = "https://github.com/korsakowii/AgenticSqlConverter/blob/main/README.md"
+Repository = "https://github.com/korsakowii/AgenticSqlConverter"
+"Bug Tracker" = "https://github.com/korsakowii/AgenticSqlConverter/issues"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+include = ["agentic_sql_converter*"]
+
+[tool.black]
+line-length = 88
+target-version = ['py39']
+include = '\.pyi?$'
+
+[tool.isort]
+profile = "black"
+multi_line_output = 3
+line_length = 88
+
+[tool.mypy]
+python_version = "3.9"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = true
+disallow_incomplete_defs = true
+check_untyped_defs = true
+disallow_untyped_decorators = true
+no_implicit_optional = true
+warn_redundant_casts = true
+warn_unused_ignores = true
+warn_no_return = true
+warn_unreachable = true
+strict_equality = true
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+addopts = "--cov=agentic_sql_converter --cov-report=html --cov-report=term-missing --verbose"
+
+[tool.coverage.run]
+source = ["agentic_sql_converter"]
+omit = ["*/tests/*", "*/test_*"]
+
+[tool.coverage.report]
+exclude_lines = [
+    "pragma: no cover",
+    "def __repr__",
+    "raise AssertionError",
+    "raise NotImplementedError",
+    "if __name__ == .__main__.:"
+]

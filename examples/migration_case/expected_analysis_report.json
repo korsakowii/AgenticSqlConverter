@@ -1,0 +1,203 @@
+{
+  "ctes": {
+    "cte_count": 6,
+    "ctes": [
+      {
+        "expression_type": "Select",
+        "name": "bounds",
+        "source_sql": "SELECT CURRENT_DATE AS as_of_date",
+        "table_names": []
+      },
+      {
+        "expression_type": "Select",
+        "name": "base_events",
+        "source_sql": "SELECT geography_key, CAST(occurred_at AS DATE) AS event_calendar_date, product_key, quantity_value, CASE WHEN quantity_value >= 100 THEN quantity_value ELSE NULL END AS large_line_quantity FROM metric_fact_sample",
+        "table_names": [
+          "metric_fact_sample"
+        ]
+      },
+      {
+        "expression_type": "Select",
+        "name": "geo_keys",
+        "source_sql": "SELECT DISTINCT geography_key FROM base_events",
+        "table_names": []
+      },
+      {
+        "expression_type": "Select",
+        "name": "product_keys",
+        "source_sql": "SELECT DISTINCT product_key FROM base_events",
+        "table_names": []
+      },
+      {
+        "expression_type": "Select",
+        "name": "geo_enriched",
+        "source_sql": "SELECT b.geography_key, b.event_calendar_date, b.product_key, SUM(b.quantity_value) AS total_quantity_value, MAX(b.large_line_quantity) AS peak_line_quantity FROM base_events AS b INNER JOIN geography_dim_sample AS g ON g.geography_key = b.geography_key WHERE NOT b.event_calendar_date IS NULL GROUP BY b.geography_key, b.event_calendar_date, b.product_key",
+        "table_names": [
+          "geography_dim_sample"
+        ]
+      },
+      {
+        "expression_type": "Select",
+        "name": "product_enriched",
+        "source_sql": "SELECT geo_enriched.*, p.category_label FROM geo_enriched INNER JOIN product_dim_sample AS p ON p.product_key = geo_enriched.product_key",
+        "table_names": [
+          "product_dim_sample"
+        ]
+      }
+    ],
+    "dialect": "postgres",
+    "error_message": null,
+    "has_parse_error": false
+  },
+  "dependency_graph": {
+    "cte_count": 6,
+    "cycle_nodes": [],
+    "dialect": "postgres",
+    "edges": [
+      {
+        "dependency_type": "cte_to_table",
+        "from": "base_events",
+        "to": "metric_fact_sample"
+      },
+      {
+        "dependency_type": "cte_to_cte",
+        "from": "geo_enriched",
+        "to": "base_events"
+      },
+      {
+        "dependency_type": "cte_to_table",
+        "from": "geo_enriched",
+        "to": "geography_dim_sample"
+      },
+      {
+        "dependency_type": "cte_to_cte",
+        "from": "geo_keys",
+        "to": "base_events"
+      },
+      {
+        "dependency_type": "cte_to_cte",
+        "from": "product_enriched",
+        "to": "geo_enriched"
+      },
+      {
+        "dependency_type": "cte_to_table",
+        "from": "product_enriched",
+        "to": "product_dim_sample"
+      },
+      {
+        "dependency_type": "cte_to_cte",
+        "from": "product_keys",
+        "to": "base_events"
+      }
+    ],
+    "error_message": null,
+    "has_cycle": false,
+    "has_parse_error": false,
+    "nodes": [
+      {
+        "name": "bounds",
+        "node_type": "cte"
+      },
+      {
+        "name": "base_events",
+        "node_type": "cte"
+      },
+      {
+        "name": "geo_keys",
+        "node_type": "cte"
+      },
+      {
+        "name": "product_keys",
+        "node_type": "cte"
+      },
+      {
+        "name": "geo_enriched",
+        "node_type": "cte"
+      },
+      {
+        "name": "product_enriched",
+        "node_type": "cte"
+      },
+      {
+        "name": "geography_dim_sample",
+        "node_type": "table"
+      },
+      {
+        "name": "metric_fact_sample",
+        "node_type": "table"
+      },
+      {
+        "name": "product_dim_sample",
+        "node_type": "table"
+      }
+    ],
+    "table_count": 3
+  },
+  "dialect": "postgres",
+  "parse": {
+    "cte_names": [
+      "base_events",
+      "bounds",
+      "geo_enriched",
+      "geo_keys",
+      "product_enriched",
+      "product_keys"
+    ],
+    "dialect": "postgres",
+    "error_message": null,
+    "expression_types": [
+      "Select"
+    ],
+    "has_parse_error": false,
+    "statement_count": 1,
+    "table_names": [
+      "geography_dim_sample",
+      "metric_fact_sample",
+      "product_dim_sample"
+    ]
+  },
+  "rewrite": {
+    "registered_passes": [],
+    "registered_rewrite_pass_count": 0
+  },
+  "risk_categories": [
+    "deep_cte_chain",
+    "postgres_cast_syntax"
+  ],
+  "risk_findings": [
+    {
+      "category": "deep_cte_chain",
+      "message": "Query declares five or more CTE definitions.",
+      "severity": "medium"
+    },
+    {
+      "category": "postgres_cast_syntax",
+      "message": "PostgreSQL :: cast syntax may need dialect-specific review.",
+      "severity": "medium"
+    }
+  ],
+  "risk_level": "medium",
+  "summary": {
+    "cte_count": 6,
+    "dependency_edge_count": 7,
+    "has_cycle": false,
+    "is_parse_valid": true,
+    "notes": [
+      "Query contains five or more CTEs."
+    ],
+    "registered_rewrite_pass_count": 0,
+    "risk_level": "medium",
+    "statement_count": 1,
+    "table_count": 3
+  },
+  "validation": {
+    "dialect": "postgres",
+    "error_count": 0,
+    "errors": [],
+    "expression_types": [
+      "Select"
+    ],
+    "is_valid": true,
+    "statement_count": 1
+  }
+}

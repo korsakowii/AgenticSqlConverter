@@ -1,0 +1,251 @@
+# =============================================================================
+# AGENTIC SQL CONVERTER - GIT IGNORE FILE
+# =============================================================================
+
+# =============================================================================
+# ARCHIVE AND BACKUP FILES
+# =============================================================================
+
+# Archive directory (contains sensitive documents and backups)
+archive/
+
+# Backup directories
+backup_*/
+backups/
+
+# =============================================================================
+# LARGE DIRECTORIES TO EXCLUDE FROM UPLOAD
+# =============================================================================
+
+# Large documentation directory (652K)
+documentation/
+
+# Coverage reports (12M)
+htmlcov/
+
+# Package info (36K)
+AgenticSqlConverter.egg-info/
+
+# Virtual environment
+.venv/
+
+# Test cache
+.pytest_cache/
+
+# Statistics and reports
+stats/
+
+# Legacy extractor
+extractor/
+
+# =============================================================================
+# PYTHON FILES
+# =============================================================================
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.pyc
+*.py[cod]
+*$py.class
+*.so
+
+# Distribution / packaging
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# PyInstaller
+*.manifest
+*.spec
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# pyenv
+.python-version
+
+# =============================================================================
+# VIRTUAL ENVIRONMENTS
+# =============================================================================
+
+# Virtual environments
+.env
+.venv
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+
+# =============================================================================
+# IDE AND EDITOR FILES
+# =============================================================================
+
+# VSCode
+.vscode/
+*.code-workspace
+
+# PyCharm
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# Vim
+*.swp
+*.swo
+*~
+
+# Emacs
+*~
+\#*\#
+/.emacs.desktop
+/.emacs.desktop.lock
+*.elc
+auto-save-list
+tramp
+.\#*
+
+# =============================================================================
+# OPERATING SYSTEM FILES
+# =============================================================================
+
+# macOS
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# Windows
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+$RECYCLE.BIN/
+
+# Linux
+*~
+
+# =============================================================================
+# LOGS AND TEMPORARY FILES
+# =============================================================================
+
+# Log files
+*.log
+logs/
+*.log.*
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.old
+
+# =============================================================================
+# PROJECT SPECIFIC
+# =============================================================================
+
+# Test results and data
+results/
+data/
+chunks/
+output/
+
+# Statistics and reports
+stats/
+
+# Legacy extractor
+extractor/
+
+# Temporary fix files
+*_fix.py
+*_complete_fix.py
+*_ultimate_fix.py
+*_chinese_fix.py
+
+# Coverage reports
+.coverage
+htmlcov/
+
+# Build artifacts
+build/
+dist/
+*.egg-info/
+
+# =============================================================================
+# SECURITY
+# =============================================================================
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+.env.backup.local
+.env.development
+.env.test
+.env.production
+
+# API keys and secrets
+*.key
+*.pem
+*.p12
+*.pfx
+secrets.json
+secrets.yaml
+secrets.yml
+config.json
+config.yaml
+config.yml
+
+# Additional sensitive files
+credentials.json
+service-account.json
+*.crt
+*.csr
+*.p8
+
+# =============================================================================
+# DOCUMENTATION (KEEP THESE)
+# =============================================================================
+
+# Documentation should be included
+# documentation/ - INCLUDED
+# README.md - INCLUDED
+# LICENSE - INCLUDED
+# CONTRIBUTING.md - INCLUDED
+# CHANGELOG.md - INCLUDED
+
+# Archive directory (temporary documentation)
+archive/
+
+# Sensitive scripts moved to archive
+archive/scripts/sensitive/
